@@ -26,5 +26,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('actions', 'Api\System\ActionController');
     Route::get('action-groups/detail', 'Api\System\ActionGroupController@detail');
     Route::apiResource('action-groups', 'Api\System\ActionGroupController');
+    Route::get('menus/list', 'Api\System\MenuController@getMenuList');
     Route::apiResource('menus', 'Api\System\MenuController');
 });

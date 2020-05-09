@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\System;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\MeResource;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -41,8 +42,7 @@ class AuthController extends Controller
      */
     public function me(Request $request)
     {
-        return $request->route()->getAction();
-        return response()->json(auth()->user());
+        return new MeResource(auth()->user());
     }
 
     /**
@@ -78,8 +78,6 @@ class AuthController extends Controller
     {
         return response()->json([
             'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
 }

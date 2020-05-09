@@ -17,6 +17,7 @@ class CreateRolesTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('code')->unique();
+            $table->string('home_url')->default('/');
             $table->text('description')->nullable();
         });
     }

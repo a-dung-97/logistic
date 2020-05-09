@@ -16,37 +16,42 @@ class ActionSeeder extends Seeder
     public function run()
     {
         $menu1 = Menu::create([
-            'name' => 'Người dùng',
-            'path' => '/users',
-            'order' => 1,
+            'title' => 'Người dùng',
+            'to' => '/users',
+            'icon' => 'mdi-account',
+            'priority' => 1,
         ]);
         $menu2 = Menu::create([
-            'name' => 'Quyền',
-            'path' => '/roles',
-            'order' => 2,
+            'title' => 'Quyền',
+            'to' => '/roles',
+            'priority' => 2,
+            'icon' => 'mdi-account-key'
         ]);
         $menu3 = Menu::create([
-            'name' => 'Menu',
-            'path' => '/menus',
-            'order' => 3,
+            'title' => 'Menu',
+            'to' => '/menus',
+            'priority' => 3,
+            'icon' => 'mdi-menu'
         ]);
         $menu4 = Menu::create([
-            'name' => 'Chức năng',
-            'path' => '/actions',
-            'order' => 4,
+            'title' => 'Chức năng',
+            'to' => '/action',
+            'priority' => 4,
+            'icon' => 'mdi-function'
+
         ]);
         $menu5 = $menu4->children()->create([
 
-            'name' => 'Nhóm chức năng',
-            'path' => '/actions/action-groups',
-            'order' => 1,
+            'title' => 'Nhóm chức năng',
+            'to' => 'action-groups',
+            'priority' => 1,
 
         ]);
         $menu6 = $menu4->children()->create([
 
-            'name' => 'Danh sách chức năng',
-            'path' => '/actions/index',
-            'order' => 2,
+            'title' => 'Danh sách chức năng',
+            'to' => 'list',
+            'priority' => 2,
 
         ]);
 
@@ -193,5 +198,6 @@ class ActionSeeder extends Seeder
             'action_group_id' => $actionGroup4->id,
         ]);
         Role::find(1)->actions()->attach(Action::all()->pluck('id')->all());
+        Role::find(2)->actions()->attach(Action::all()->pluck('id')->all());
     }
 }

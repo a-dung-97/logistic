@@ -63,4 +63,42 @@ class MenuController extends Controller
     {
         return Helper::delete($menu);
     }
+    public function getMenuList()
+    {
+        $roles = $this->user->roles()->with(['actions' => function ($query) {
+            $query->select('id', 'menu_id')->with(['menu' => function ($query) {
+                return $query->where('priority', '<>', 0)->with('parent');
+            }]);
+        }])->get();
+        $menu = $roles->map(function ($item) {
+            return $item->actions;
+        })->flatten(1)->unique(function ($item) {
+            return $item->id;
+        })->map(function ($item) {
+            return $item->menu;
+        })->filter(function ($item) {
+            return $item;
+        })->values()->filter(function ($item) {
+            return $item->priority != 0;
+        })->values()->groupBy('menu_id');
+        $menu->each(function ($item, $key) use (&$menu) {
+            if ($key != "") {
+                $parent = clone $item[0]->parent;
+                foreach ($item as $val) {
+                    unset($val->parent);
+                    unset($val->menu_id);
+                }
+                $parent['groups'] = $parent['to'];
+                unset($parent->to);
+                $parent['children'] = $item->sortBy('priority')->values();
+                unset($parent->menu_id);
+                $menu[$key] = $parent;
+            } else foreach ($item as $val) {
+                unset($val->parent);
+                unset($val->menu_id);
+            }
+        });
+        return $menu->values()->flatten(1)->sortBy('priority')->values();
+        // return $action;
+    }
 }

@@ -55,12 +55,14 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'home_url'=>$this->roles()->first()->home_url
+        ];
     }
 
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo('App\Role');
+        return $this->belongsToMany('App\Role');
     }
     public function hasPermission($action)
     {
