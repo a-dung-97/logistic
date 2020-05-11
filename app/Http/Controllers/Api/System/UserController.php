@@ -20,12 +20,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        return 5 / 0;
         $perPage = $request->query('per_page', 20);
         $search = $request->query('search');
         $query = User::query();
         if ($search) $query->whereLike(['name', 'username', 'email', 'phone_number'], '%' . $search . '%');
-        return UserResource::collection($query->with('role:id,name')->paginate($perPage));
+        return UserResource::collection($query->with('roles:id,name')->paginate($perPage));
     }
 
     /**
