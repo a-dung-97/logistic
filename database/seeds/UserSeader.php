@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         $role = Role::create([
             'name' => 'System Admin',
             'code' => 'sysadmin',
-            'home_url'=>'/users'
+            'home_url' => '/users'
 
         ]);
         $role1 = Role::create([
@@ -31,11 +31,11 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'System Admin',
             'username' => 'sysadmin',
-
+            'role_id' => 1,
             'email' => 'sysadmin@gmail.com',
             'phone_number' => '0833266699',
             'password' => Hash::make('12345678')
-        ])->roles()->attach([1,2]);
+        ]);
         $role1->users()->create([
             'name' => 'User 1',
             'username' => 'role1',
@@ -46,7 +46,6 @@ class UserSeeder extends Seeder
         $role2->users()->create([
             'name' => 'User 2',
             'username' => 'role2',
-
             'email' => 'user2@gmail.com',
             'phone_number' => '0833266698',
             'password' => Hash::make('12345678')

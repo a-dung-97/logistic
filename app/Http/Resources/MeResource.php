@@ -15,21 +15,18 @@ class MeResource extends JsonResource
      */
     public function toArray($request)
     {
-        $roles = $this->roles()->with(['actions' => function ($query) {
-            $query->select('id', 'menu_id')->with('menu.parent');
-        }])->get();
-        $menus = $this->getMenuList($roles);
-        $homeUrl = $roles->first()->home_url;
-        $routes = $roles->map(function ($item) {
-            return $item->actions;
-        })->flatten(1)->map(function ($item) {
+        // $roles = $this->role()->with(['actions' => function ($query) {
+        //     $query->select('id', 'menu_id')->with('menu.parent');
+        // }])->first();
+        $role = $this->role;
+        $menus =  $role->actions()->select('id', 'menu_id')->with('menu.parent')->get();
+        $routes = $menus->map(function ($item) {
             return $item->menu ? $item->menu->title : null;
         })->filter(function ($item) {
             return $item;
-        })->values()->unique();
-        $roles = $roles->map(function ($item) {
-            return $item->code;
-        });
+        })->values();
+        $menus = $this->getMenuList($menus);
+        $homeUrl = $role->home_url;
         return [
             'id' => $this->id,
             'username' => $this->username,
@@ -37,19 +34,15 @@ class MeResource extends JsonResource
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'routes' => $routes,
-            'roles' => $roles,
+            'roles' => [$role->code],
             'menus' => $menus,
             'home_url' => $homeUrl
 
         ];
     }
-    private function getMenuList($roles)
+    private function getMenuList($menu)
     {
-        $menu = $roles->map(function ($item) {
-            return $item->actions;
-        })->flatten(1)->unique(function ($item) {
-            return $item->id;
-        })->map(function ($item) {
+        $menu = $menu->map(function ($item) {
             return $item->menu;
         })->filter(function ($item) {
             return $item;

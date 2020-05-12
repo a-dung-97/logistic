@@ -24,7 +24,7 @@ class UserController extends Controller
         $search = $request->query('search');
         $query = User::query();
         if ($search) $query->whereLike(['name', 'username', 'email', 'phone_number'], '%' . $search . '%');
-        return UserResource::collection($query->with('roles:id,name')->paginate($perPage));
+        return UserResource::collection($query->with('role:id,name')->paginate($perPage));
     }
 
     /**
