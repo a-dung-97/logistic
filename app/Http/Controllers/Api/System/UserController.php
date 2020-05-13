@@ -65,6 +65,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if ($this->user->id == $user->id) return Response::error('Bạn không thể xoá chính bạn');
         return Helper::delete($user);
     }
 }
