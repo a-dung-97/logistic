@@ -23,9 +23,11 @@ class ActionController extends Controller
         $search = $request->query('search');
         $query = Action::query();
         if ($search) $query->whereLike(['name'], '%' . $search . '%');
-        return ActionResource::collection($query->with('menu:id,name')->paginate($perPage));
+        return ActionResource::collection($query->with('menu:id,title')->paginate($perPage));
     }
 
+    public function getActionList()
+    { }
     /**
      * Store a newly created resource in storage.
      *

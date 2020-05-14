@@ -22,6 +22,7 @@ Route::group(['prefix' => 'auth'], function ($router) {
 
 Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('users', 'Api\System\UserController');
+    Route::put('roles/{role}/actions', 'Api\System\RoleController@updateActions');
     Route::apiResource('roles', 'Api\System\RoleController');
     Route::apiResource('actions', 'Api\System\ActionController');
     Route::get('action-groups/detail', 'Api\System\ActionGroupController@detail');

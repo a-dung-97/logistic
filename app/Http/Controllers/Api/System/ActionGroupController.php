@@ -9,6 +9,7 @@ use App\Http\Requests\ActionGroupRequest;
 use App\Http\Resources\ActionGroupResource;
 use App\ActionGroup;
 use App\Helpers\Response;
+use App\Http\Resources\ActionGroupDetailResource;
 use Illuminate\Http\Request;
 
 class ActionGroupController extends Controller
@@ -41,7 +42,7 @@ class ActionGroupController extends Controller
 
     public function detail()
     {
-        return ['data' => ActionGroup::with('actions:id,name,action_group_id')->get()];
+        return ActionGroupDetailResource::collection(ActionGroup::with('actions:id,name,action_group_id')->get());
     }
 
 

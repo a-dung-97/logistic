@@ -52,6 +52,11 @@ class RoleController extends Controller
         $role->update($request->all());
         return Response::updated();
     }
+    public function updateActions(Request $request, Role $role)
+    {
+        $role->actions()->sync($request->actions);
+        return Response::updated();
+    }
 
     /**
      * Remove the specified resource from storage.
