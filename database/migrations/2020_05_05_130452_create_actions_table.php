@@ -17,7 +17,6 @@ class CreateActionsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('reference');
-            $table->boolean('active')->default(true);
             $table->unsignedInteger('action_group_id')->nullable();
             $table->foreign('action_group_id')->references('id')->on('action_groups');
             $table->unsignedInteger('menu_id')->nullable();

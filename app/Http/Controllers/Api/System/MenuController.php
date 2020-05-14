@@ -21,9 +21,11 @@ class MenuController extends Controller
     {
         $perPage = $request->query('per_page', 20);
         $search = $request->query('search');
-        $query = Menu::query();
-        if ($search) $query->whereLike(['name'], '%' . $search . '%');
-        return MenuResource::collection($query->paginate($perPage));
+        $parentMenu = $request->query('parent_menu');
+        $query = Menu::latest('id');
+        if ($search) $query->whereLike(['title'], '%' . $search . '%');
+        if ($parentMenu) $query->whereNull('menu_id');
+        return MenuResource::collection($query->with('parent:id,title')->paginate($perPage));
     }
 
     /**
@@ -49,6 +51,7 @@ class MenuController extends Controller
      */
     public function update(MenuRequest $request, Menu $menu)
     {
+        if ($menu->id == $request->menu_id) return Response::error('Không thể chọn menu hiện tại là menu cha');
         $menu->update($request->all());
         return Response::updated();
     }

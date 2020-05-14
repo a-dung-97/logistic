@@ -24,8 +24,9 @@ class MenuRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:menus,name,' . ($this->id ? $this->id : -1),
-            'order' => 'required',
+            'title' => 'required|unique:menus,title,' . ($this->id ? $this->id : -1),
+            'priority' => 'required',
+            'to' => 'required',
         ];
     }
 }

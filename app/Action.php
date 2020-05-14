@@ -12,4 +12,8 @@ class Action extends Model
     {
         return $this->belongsTo('App\Menu');
     }
+    public function group()
+    {
+        return $this->belongsTo('App\ActionGroup', 'action_group_id');
+    }
 }
