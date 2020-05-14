@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\System;
 
+use App\Helpers\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\MeResource;
@@ -31,7 +32,9 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['message' => 'Thông tin đăng nhập không hợp lệ'], 401);
         }
-
+        if (!auth()->user()->active) {
+            return Response::error('Tài khoản chưa được kích hoạt');
+        }
         return $this->respondWithToken($token);
     }
 

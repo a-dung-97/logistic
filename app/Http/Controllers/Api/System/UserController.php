@@ -22,8 +22,10 @@ class UserController extends Controller
     {
         $perPage = $request->query('per_page', 20);
         $search = $request->query('search');
+        $role = $request->query('role_id');
         $query = User::query()->latest('id');
         if ($search) $query->whereLike(['name', 'username', 'email', 'phone_number'], '%' . $search . '%');
+        if ($role) $query->where('role_id', $role);
         return UserResource::collection($query->with('role:id,name')->paginate($perPage));
     }
 
