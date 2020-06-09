@@ -22,9 +22,11 @@ class MenuController extends Controller
         $perPage = $request->query('per_page', 20);
         $search = $request->query('search');
         $parentMenu = $request->query('parent_menu');
+        $menu = $request->query('menu_id');
         $query = Menu::latest('id');
         if ($search) $query->whereLike(['title'], '%' . $search . '%');
         if ($parentMenu) $query->whereNull('menu_id');
+        if ($menu) $query->where('menu_id', $menu);
         return MenuResource::collection($query->with('parent:id,title')->paginate($perPage));
     }
 

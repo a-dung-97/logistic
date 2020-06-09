@@ -21,10 +21,10 @@ class ActionController extends Controller
     {
         $perPage = $request->query('per_page', 20);
         $search = $request->query('search');
-        $group = $request->query('group_id');
+        $group = $request->query('action_group_id');
         $query = Action::query();
         if ($search) $query->whereLike(['name'], '%' . $search . '%');
-        if ($search) $query->where('action_group_id', $group);
+        if ($group) $query->where('action_group_id', $group);
         return ActionResource::collection($query->with('menu:id,title', 'group:id,name')->paginate($perPage));
     }
 
