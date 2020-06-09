@@ -18,9 +18,11 @@ Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('logout', 'Api\System\AuthController@logout');
     Route::post('refresh', 'Api\System\AuthController@refresh');
     Route::post('me', 'Api\System\AuthController@me');
+    Route::post('password/change', 'Api\System\AuthController@changePassword');
 });
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::post('users/avatar', 'Api\System\UserController@changeAvatar');
     Route::apiResource('users', 'Api\System\UserController');
     Route::put('roles/{role}/actions', 'Api\System\RoleController@updateActions');
     Route::apiResource('roles', 'Api\System\RoleController');

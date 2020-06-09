@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Action;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class MeResource extends JsonResource
 {
@@ -33,8 +34,9 @@ class MeResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone_number' => $this->phone_number,
+            'avatar' => $this->avatar ?  Storage::url('avatars/' . $this->avatar) : null,
             'routes' => $routes,
-            'roles' => [$role->code],
+            'roles' => [$role->name],
             'menus' => $menus,
             'home_url' => $homeUrl
 

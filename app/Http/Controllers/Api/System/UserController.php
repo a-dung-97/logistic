@@ -10,6 +10,7 @@ use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -69,5 +70,17 @@ class UserController extends Controller
     {
         if ($this->user->id == $user->id) return Response::error('Bạn không thể xoá chính bạn');
         return Helper::delete($user);
+    }
+    public function changeAvatar(Request $request)
+    {
+        $oldAvatar = $this->user->avatar;
+        if ($oldAvatar) {
+            Storage::delete('public/avatar/', $oldAvatar);
+        }
+        if ($request->avatar) {
+            $name = Helper::uploadImage($request->avatar, 'avatars');
+            $this->user->update(['avatar' => $name]);
+            return ['message' => 'Cập nhật thành công', 'data' => ['avatar' => Storage::url('avatars/' . $name)]];
+        } else return response(['message' => 'Bạn chưa tải ảnh lên'], 400);
     }
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api\System;
 
 use App\Helpers\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\MeResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -82,5 +84,12 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
         ]);
+    }
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        if (!Hash::check($request->old_password, auth()->user()->password))
+            return Response::error('Mật khẩu cũ không đúng');
+        auth()->user()->update(['password' => Hash::make($request->password)]);
+        return ['message' => 'OK'];
     }
 }
