@@ -12,10 +12,7 @@
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
-        "laravel/telescope": "^3.3",
         "laravel/tinker": "^2.0",
-        "moontoast/math": "1.1.2 as 1.999.999",
-        "phpseclib/bcmath_compat": "^1.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
