@@ -31,4 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('action-groups', 'Api\System\ActionGroupController');
     Route::get('menus/list', 'Api\System\MenuController@getMenuList');
     Route::apiResource('menus', 'Api\System\MenuController');
+    Route::apiResource('truck-manufacturers', 'Api\Business\TruckManufacturerController');
+    Route::apiResource('truck-types', 'Api\Business\TruckTypeController');
+    Route::apiResource('scrap', 'Api\Business\TruckTypeController');
 });

@@ -17,13 +17,16 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('username')->unique();
-            $table->string('email')->unique();
+            $table->string('email')->nullable()->unique();
             $table->string('phone_number')->unique();
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->boolean('active')->default(true);
             $table->unsignedInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
+            $table->date('birthday')->nullable();
+            $table->string('id_no')->nullable();
+            $table->string('address')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
