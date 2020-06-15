@@ -17,7 +17,7 @@ class CreateCustomerScrapTable extends Migration
             $table->unsignedInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->unsignedInteger('scrap_id');
-            $table->foreign('scrap_id')->references('id')->on('scrap');
+            $table->foreign('scrap_id')->references('id')->on('scraps');
             $table->decimal('price', 10, 0)->default(0);
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScrapTable extends Migration
+class CreateScrapsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateScrapTable extends Migration
      */
     public function up()
     {
-        Schema::create('scrap', function (Blueprint $table) {
+        Schema::create('scraps', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code')->unique();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
         });
     }
 
@@ -28,6 +28,6 @@ class CreateScrapTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scrap');
+        Schema::dropIfExists('scraps');
     }
 }

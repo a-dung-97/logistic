@@ -16,7 +16,7 @@ class CreateIssueDetailsTable extends Migration
         Schema::create('issue_details', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('scrap_id');
-            $table->foreign('scrap_id')->references('id')->on('scrap');
+            $table->foreign('scrap_id')->references('id')->on('scraps');
             $table->unsignedInteger('issue_id');
             $table->foreign('issue_id')->references('id')->on('issues');
             $table->float('quantity')->default(0);

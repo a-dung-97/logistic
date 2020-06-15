@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ScrapRequest extends FormRequest
+class CustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,14 +30,13 @@ class ScrapRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:scraps,name,' . ($this->id ? $this->id : -1),
-            'code' => 'required|unique:scraps,code,' . ($this->id ? $this->id : -1),
+            'name' => 'required',
+            'code' => 'required|unique:customers,code,' . ($this->id ? $this->id : -1),
         ];
     }
     public function messages()
     {
         return [
-            'name.unique' => 'Tên đã tồn tại',
             'code.unique' => 'Mã đã tồn tại'
         ];
     }

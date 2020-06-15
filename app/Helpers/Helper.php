@@ -26,4 +26,9 @@ class Helper
         Storage::put('public/' . $folder . '/' . $name, \Image::make($image)->stream());
         return $name;
     }
+    public static  function validateLatLong($lat, $long)
+    {
+        if (!$lat && !$long) return true;
+        return preg_match('/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?),[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/', $lat . ',' . $long);
+    }
 }

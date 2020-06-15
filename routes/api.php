@@ -33,5 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('menus', 'Api\System\MenuController');
     Route::apiResource('truck-manufacturers', 'Api\Business\TruckManufacturerController');
     Route::apiResource('truck-types', 'Api\Business\TruckTypeController');
-    Route::apiResource('scrap', 'Api\Business\TruckTypeController');
+    Route::apiResource('scrap', 'Api\Business\ScrapController');
+    Route::get('customers/{customer}/scraps', 'Api\Business\CustomerController@getScraps');
+    Route::put('customers/{customer}/scraps', 'Api\Business\CustomerController@updateScraps');
+    Route::apiResource('customers', 'Api\Business\CustomerController');
+    Route::apiResource('customers', 'Api\Business\CustomerController');
 });
