@@ -21,6 +21,7 @@ class CreateIssuesTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->date('date');
             $table->tinyInteger('shift');
+            $table->json('images')->nullable();
             $table->float('quantity')->default(0);
             $table->timestamps();
         });

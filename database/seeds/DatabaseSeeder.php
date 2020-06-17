@@ -1,5 +1,8 @@
 <?php
 
+use App\Customer;
+use App\Scrap;
+use App\Truck;
 use App\TruckManufacturer;
 use App\TruckType;
 use Illuminate\Database\Seeder;
@@ -53,6 +56,42 @@ class DatabaseSeeder extends Seeder
             'code' => 'XT9',
             'tonnage' => 9
 
+        ]);
+        Scrap::create([
+            'code' => 'PL1',
+            'name' => 'PL1',
+        ]);
+        Scrap::create([
+            'code' => 'PL2',
+            'name' => 'PL2',
+        ]);
+        Scrap::create([
+            'code' => 'PL3',
+            'name' => 'PL3',
+        ]);
+        Customer::create([
+            'code' => 'KH1',
+            'name' => 'KH1'
+        ])->scraps()->attach([1, 2, 3]);
+        Customer::create([
+            'code' => 'KH2',
+            'name' => 'KH2'
+        ])->scraps()->attach([1, 2, 3]);
+        Customer::create([
+            'code' => 'KH3',
+            'name' => 'KH3'
+        ])->scraps()->attach([1, 2, 3]);
+        Truck::create([
+            'number_plate' => '18B1-90620',
+            'truck_manufacturer_id' => 1,
+            'truck_type_id' => 2,
+            'user_id' => 2,
+        ]);
+        Truck::create([
+            'number_plate' => '18B1-99999',
+            'truck_manufacturer_id' => 2,
+            'truck_type_id' => 3,
+            'user_id' => 3,
         ]);
     }
 }
