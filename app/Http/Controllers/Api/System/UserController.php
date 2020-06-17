@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Helpers\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\NotificationResource;
 use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Http\Request;
@@ -102,5 +103,9 @@ class UserController extends Controller
                 ]
             ], 200, []);
         }
+    }
+    public function getNotifications()
+    {
+        return NotificationResource::collection($this->user->notifications()->paginate(20));
     }
 }

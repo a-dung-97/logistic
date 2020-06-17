@@ -42,4 +42,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('trucks', 'Api\Business\TruckController');
     Route::put('broken-truck-reports/{broken_truck_report}/approve', 'Api\Business\BrokenTruckReportController@approve');
     Route::apiResource('broken-truck-reports', 'Api\Business\BrokenTruckReportController');
+
+    Route::apiResource('works', 'Api\Business\WorkController');
+    Route::post('coordinate', 'Api\Business\WorkController@coordinate');
+    Route::put('cancel', 'Api\Business\WorkController@cancel');
+
+    Route::get('tasks', 'TaskController@index');
+    Route::put('tasks/{task}/accept', 'TaskController@accept');
+    Route::put('tasks/{task}/reject', 'TaskController@reject');
+    Route::put('tasks/{task}/complete', 'TaskController@complete');
 });
