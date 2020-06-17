@@ -65,11 +65,16 @@ class CustomerController extends Controller
     }
     public function updateScraps(Customer $customer, Request $request)
     {
-        $customer->scraps()->attach([$request->id => ['price' => $request->price]]);
+        $customer->scraps()->syncWithoutDetaching([$request->id => ['price' => $request->price]]);
         return Response::updated();
     }
     public function getScraps(Customer $customer)
     {
         return ['data' => $customer->scraps()->withPivot('price')->get()];
+    }
+    public function deleteScraps(Customer $customer, $scrapId)
+    {
+        $customer->scraps()->detach($scrapId);
+        return Response::deleted();
     }
 }

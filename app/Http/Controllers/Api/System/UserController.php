@@ -24,9 +24,16 @@ class UserController extends Controller
         $perPage = $request->query('per_page', 20);
         $search = $request->query('search');
         $role = $request->query('role_id');
+        $driver = $request->query('driver');
         $query = User::query()->latest('id');
         if ($search) $query->whereLike(['name', 'username', 'email', 'phone_number'], '%' . $search . '%');
         if ($role) $query->where('role_id', $role);
+        if ($driver) {
+            $query->whereHas('role', function ($query) {
+                $query->where('code', 'lx');
+            });
+            return ['data' => $query->select('id', 'name')->get()];
+        }
         return UserResource::collection($query->with('role:id,name')->paginate($perPage));
     }
 
@@ -82,5 +89,18 @@ class UserController extends Controller
             $this->user->update(['avatar' => $name]);
             return ['message' => 'Cập nhật thành công', 'data' => ['avatar' => Storage::url('avatars/' . $name)]];
         } else return response(['message' => 'Bạn chưa tải ảnh lên'], 400);
+    }
+    function uploadImage(Request $request)
+    {
+        if ($request->file) {
+            $image = $request->file;
+            $name = $image->getClientOriginalName();
+            $image->storeAs('public/upload/', $name);
+            return response()->json([
+                'data' => [
+                    "url" => '/storage/upload/' . $name
+                ]
+            ], 200, []);
+        }
     }
 }

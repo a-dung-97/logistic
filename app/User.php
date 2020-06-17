@@ -10,7 +10,10 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable, SoftDeletes;
-
+    public function routeNotificationForOneSignal()
+    {
+        return ['tags' => ['key' => 'user_id', 'relation' => '=', 'value' => $this->id]];
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -68,8 +71,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return (bool) $this->role->actions()->whereReference($action)->count();
     }
-    // public function actions()
-    // {
-    //     return $this->hasManyThrough('App\Action', 'App\Role');
-    // }
+    public function truck()
+    {
+        return $this->hasOne('App\Truck');
+    }
+    public function brokenTruckReports()
+    {
+        return $this->hasMany('App\BrokenTruckReport');
+    }
 }

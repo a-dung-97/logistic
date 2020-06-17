@@ -22,6 +22,7 @@ Route::group(['prefix' => 'auth'], function ($router) {
 });
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::post('images/upload', 'Api\System\UserController@uploadImage');
     Route::post('users/avatar', 'Api\System\UserController@changeAvatar');
     Route::apiResource('users', 'Api\System\UserController');
     Route::put('roles/{role}/actions', 'Api\System\RoleController@updateActions');
@@ -36,6 +37,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('scrap', 'Api\Business\ScrapController');
     Route::get('customers/{customer}/scraps', 'Api\Business\CustomerController@getScraps');
     Route::put('customers/{customer}/scraps', 'Api\Business\CustomerController@updateScraps');
+    Route::delete('customers/{customer}/scraps/{id}', 'Api\Business\CustomerController@deleteScraps');
     Route::apiResource('customers', 'Api\Business\CustomerController');
-    Route::apiResource('customers', 'Api\Business\CustomerController');
+    Route::apiResource('trucks', 'Api\Business\TruckController');
+    Route::put('broken-truck-reports/{broken_truck_report}/approve', 'Api\Business\BrokenTruckReportController@approve');
+    Route::apiResource('broken-truck-reports', 'Api\Business\BrokenTruckReportController');
 });

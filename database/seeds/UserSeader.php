@@ -21,33 +21,73 @@ class UserSeeder extends Seeder
 
         ]);
         $role1 = Role::create([
-            'name' => 'Role 1',
-            'code' => 'role1',
+            'name' => 'Lái xe',
+            'code' => 'LX',
         ]);
         $role2 = Role::create([
-            'name' => 'Role 2',
-            'code' => 'role2',
+            'name' => 'Nhân viên kinh doanh',
+            'code' => 'NVKD',
+        ]);
+        $role3 = Role::create([
+            'name' => 'Nhân viên PSX',
+            'code' => 'NVPSX',
+        ]);
+        $role4 = Role::create([
+            'name' => 'Quản lý xe',
+            'code' => 'QLX',
+        ]);
+        $role5 = Role::create([
+            'name' => 'Nhân viên kho',
+            'code' => 'NVK',
         ]);
         User::create([
             'name' => 'System Admin',
             'username' => 'sysadmin',
             'role_id' => 1,
             'email' => 'sysadmin@gmail.com',
-            'phone_number' => '0833266699',
-            'password' => Hash::make('12345678')
-        ]);
-        $role1->users()->create([
-            'name' => 'User 1',
-            'username' => 'role1',
-            'email' => 'user1@gmail.com',
             'phone_number' => '0833266697',
             'password' => Hash::make('12345678')
         ]);
+        $role1->users()->create([
+            'name' => 'LX 1',
+            'username' => 'lx1',
+            'email' => 'lx1@gmail.com',
+            'phone_number' => '0961112381',
+            'password' => Hash::make('12345678')
+        ]);
+        $role1->users()->create([
+            'name' => 'LX 2',
+            'username' => 'lx2',
+            'email' => 'lx2@gmail.com',
+            'phone_number' => '0961112382',
+            'password' => Hash::make('12345678')
+        ]);
         $role2->users()->create([
-            'name' => 'User 2',
-            'username' => 'role2',
-            'email' => 'user2@gmail.com',
-            'phone_number' => '0833266698',
+            'name' => 'NVKD 1',
+            'username' => 'nvkd1',
+            'email' => 'nvkd1@gmail.com',
+            'phone_number' => '0961112383',
+            'password' => Hash::make('12345678')
+        ]);
+        $role3->users()->create([
+            'name' => 'NVPSX 1',
+            'username' => 'nvpsx1',
+            'email' => 'nvpsx1@gmail.com',
+            'phone_number' => '0961112384',
+            'password' => Hash::make('12345678')
+        ]);
+        $role4->users()->create([
+            'name' => 'QLX 1',
+            'username' => 'qlx1',
+            'email' => 'qlx1@gmail.com',
+            'phone_number' => '0961112385',
+            'password' => Hash::make('12345678')
+        ]);
+        $role5->users()->create([
+            'name' => 'QLK 1',
+            'username' => 'qlk1',
+            'email' => 'qlk1@gmail.com',
+            'phone_number' => '0961112386',
             'password' => Hash::make('12345678')
         ]);
     }
