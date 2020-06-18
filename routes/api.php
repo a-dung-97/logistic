@@ -55,5 +55,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('tasks/{task}/cancel', 'Api\Business\TaskController@cancel');
 
     Route::get('issues', 'Api\Business\IssueController@index');
+    Route::get('notifications', 'Api\System\UserController@getNotifications');
     Route::put('issues/{issue}', 'Api\Business\IssueController@update');
 });
