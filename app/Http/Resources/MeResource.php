@@ -35,9 +35,9 @@ class MeResource extends JsonResource
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'avatar' => $this->avatar ?  Storage::url('avatars/' . $this->avatar) : null,
-            'routes' => $routes,
+            'routes' => $role->code != 'lx' ? $routes : [],
             'roles' => [$role->name],
-            'menus' => $menus,
+            'menus' => $role->code != 'lx' ? $menus : [],
             'home_url' => $homeUrl
 
         ];
