@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CoordinationRequest extends FormRequest
+class RejectTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class CoordinationRequest extends FormRequest
     public function rules()
     {
         return [
-            'trucks' => 'required|array|min:1',
-            'trucks.*.id' => 'required',
-            'trucks.*.time' => 'required',
+            'reason_for_cancellation' => 'required'
         ];
     }
 }

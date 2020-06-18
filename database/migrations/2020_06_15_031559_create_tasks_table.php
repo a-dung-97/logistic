@@ -23,7 +23,7 @@ class CreateTasksTable extends Migration
             $table->unsignedInteger('work_id');
             $table->foreign('work_id')->references('id')->on('works');
             $table->tinyInteger('status');
-            $table->text('reason_for_cancellation');
+            $table->text('reason_for_cancellation')->nullable();
             $table->timestamps();
         });
     }

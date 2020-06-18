@@ -25,10 +25,11 @@ class WorkRequest extends FormRequest
     {
         return [
             'date' => 'required',
-            'time' => 'required',
             'shift' => 'required',
-            'customers' => 'required|min:1',
+            'customers' => 'required|array|min:1',
             'truck_types' => 'required|min:1',
+            'truck_types.*.id' => 'required',
+            'truck_types.*.quantity' => 'required|integer|min:1',
         ];
     }
 }

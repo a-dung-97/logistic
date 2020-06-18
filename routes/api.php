@@ -44,11 +44,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('broken-truck-reports', 'Api\Business\BrokenTruckReportController');
 
     Route::apiResource('works', 'Api\Business\WorkController');
-    Route::post('coordinate', 'Api\Business\WorkController@coordinate');
+    Route::post('works/{work}/coordinate', 'Api\Business\WorkController@coordinate');
+    Route::post('works/{work}/cancel', 'Api\Business\WorkController@cancel');
     Route::put('cancel', 'Api\Business\WorkController@cancel');
 
-    Route::get('tasks', 'TaskController@index');
-    Route::put('tasks/{task}/accept', 'TaskController@accept');
-    Route::put('tasks/{task}/reject', 'TaskController@reject');
-    Route::put('tasks/{task}/complete', 'TaskController@complete');
+    Route::get('tasks', 'Api\Business\TaskController@index');
+    Route::put('tasks/{task}/accept', 'Api\Business\TaskController@accept');
+    Route::put('tasks/{task}/reject', 'Api\Business\TaskController@reject');
+    Route::put('tasks/{task}/complete', 'Api\Business\TaskController@complete');
+    Route::put('tasks/{task}/cancel', 'Api\Business\TaskController@cancel');
+
+    Route::get('issues', 'Api\Business\IssueController@index');
+    Route::put('issues/{issue}', 'Api\Business\IssueController@update');
 });

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CoordinationRequest extends FormRequest
+class IssueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class CoordinationRequest extends FormRequest
     public function rules()
     {
         return [
-            'trucks' => 'required|array|min:1',
-            'trucks.*.id' => 'required',
-            'trucks.*.time' => 'required',
+            'details' => 'required|array|min:1',
+            'details.*.scrap_id' => 'required',
+            'details.*.quantity' => 'required|numeric|min:0',
         ];
     }
 }
