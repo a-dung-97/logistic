@@ -18,12 +18,14 @@ class TruckController extends Controller
     {
         $perPage = $request->query('per_page', 20);
         $search = $request->query('search');
+        $hasDriver = $request->query('has_driver');
         $truckType = $request->query('truck_type_id');
         $truckManufacturer = $request->query('truck_manufacturer_id');
         $query = Truck::query();
         if ($search) $query->whereLike(['number_blate'], '%' . $search . '%');
         if ($truckType) $query->where('truck_type_id', $truckType);
         if ($truckManufacturer) $query->where('truck_manufacturer_id', $truckManufacturer);
+        if ($hasDriver) $query->has('driver');
         return TruckResource::collection($query->with('type:id,name', 'manufacturer:id,name', 'driver:id,name')->paginate($perPage));
     }
 

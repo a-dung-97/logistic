@@ -19,6 +19,10 @@ class Work extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function coordinator()
+    {
+        return $this->belongsTo('App\User', 'coordinator_id');
+    }
     public function tasks()
     {
         return $this->hasMany('App\Task');

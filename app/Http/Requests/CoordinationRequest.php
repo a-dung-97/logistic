@@ -25,7 +25,7 @@ class CoordinationRequest extends FormRequest
     {
         return [
             'trucks' => 'required|array|min:1',
-            'trucks.*.id' => 'required',
+            'trucks.*.truck_id' => 'required',
             'trucks.*.time' => 'required',
         ];
     }

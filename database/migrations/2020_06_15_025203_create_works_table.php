@@ -19,6 +19,8 @@ class CreateWorksTable extends Migration
             $table->tinyInteger('shift');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedInteger('coordinator_id')->nullable();
+            $table->foreign('coordinator_id')->references('id')->on('users');
             $table->tinyInteger('status');
             $table->timestamps();
         });

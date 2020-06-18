@@ -19,4 +19,8 @@ class Task extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function truck()
+    {
+        return $this->belongsTo('App\Truck');
+    }
 }

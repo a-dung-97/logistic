@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('broken-truck-reports', 'Api\Business\BrokenTruckReportController');
 
     Route::apiResource('works', 'Api\Business\WorkController');
+    Route::get('works/{work}/tasks', 'Api\Business\WorkController@getTasks');
     Route::post('works/{work}/coordinate', 'Api\Business\WorkController@coordinate');
     Route::post('works/{work}/cancel', 'Api\Business\WorkController@cancel');
     Route::put('cancel', 'Api\Business\WorkController@cancel');
