@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('works/{work}/cancel', 'Api\Business\WorkController@cancel');
     Route::put('cancel', 'Api\Business\WorkController@cancel');
     Route::get('route-lists', 'Api\Business\WorkController@getRouteLists');
-    Route::get('save-to-warehouse', 'Api\Business\WorkController@saveToWarehouse');
+    Route::post('save-to-warehouse', 'Api\Business\WorkController@saveToWarehouse');
 
     Route::get('tasks', 'Api\Business\TaskController@index');
     Route::put('tasks/{task}/accept', 'Api\Business\TaskController@accept');

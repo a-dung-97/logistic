@@ -5,6 +5,7 @@ use App\Scrap;
 use App\Truck;
 use App\TruckManufacturer;
 use App\TruckType;
+use App\Warehouse;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -92,6 +93,14 @@ class DatabaseSeeder extends Seeder
             'truck_manufacturer_id' => 2,
             'truck_type_id' => 3,
             'user_id' => 3,
+        ]);
+        Warehouse::create([
+            'name' => 'Kho 1',
+            'code' => 'K1',
+        ]);
+        Warehouse::create([
+            'name' => 'Kho 2',
+            'code' => 'K2',
         ]);
     }
 }

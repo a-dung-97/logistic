@@ -23,4 +23,8 @@ class Task extends Model
     {
         return $this->belongsTo('App\Truck');
     }
+    public function receipt()
+    {
+        return $this->hasOne('App\Receipt');
+    }
 }

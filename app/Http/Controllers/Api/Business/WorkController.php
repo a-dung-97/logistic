@@ -121,20 +121,24 @@ class WorkController extends Controller
         $query = Task::whereHas('work', function ($query) use ($date) {
             $query->whereDate('date', $date);
         });
+        $saveToWarehouse = $request->query('save_to_warehouse');
+        if (isset($saveToWarehouse)) {
+            if ($saveToWarehouse == 1) $query->has('receipt');
+            else $query->doesntHave('receipt');
+        }
         if ($status) $query->where('status', $status);
         $query->with('truck:id,number_plate', 'user:id,name')->with(['work' => function ($query) {
             $query->with('customers:id,name')->with(['truckTypes' => function ($query) {
                 $query->withPivot('quantity');
             }]);
         }]);
-        return RouteListResource::collection($query->paginate($perPage));
+        return RouteListResource::collection($query->with('receipt.warehouse')->paginate($perPage));
     }
-    public function saveToWarehouse(Task $task, Request $request)
+    public function saveToWarehouse(Request $request)
     {
         Receipt::create([
-            'truck_id' => $task->truck_id,
-            'user_id' => $task->user_id,
-            'quantity' => $task->issues()->sum('quantity'),
+            'task_id' => $request->task_id,
+            'quantity' => Task::find($request->task_id)->issues()->sum('quantity'),
             'warehouse_id' => $request->warehouse_id,
             'date' => Carbon::now()->toDateString()
         ]);
