@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Response;
 use App\Http\Requests\CoordinationRequest;
 use App\Http\Requests\WorkRequest;
+use App\Http\Resources\RouteListResource;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\WorkResource;
 use App\Notifications\NewTask;
 use App\Notifications\TaskCanceled;
+use App\Receipt;
+use App\Task;
 use App\Truck;
 use App\User;
 use App\Work;
@@ -109,5 +112,32 @@ class WorkController extends Controller
     public function getTasks(Work $work)
     {
         return  TaskResource::collection($work->tasks()->select('id', 'truck_id', 'user_id', 'status', 'time', 'work_id')->with('truck:id,number_plate', 'user:id,name')->get());
+    }
+    public function getRouteLists(Request $request)
+    {
+        $perPage = $request->query('per_page', 20);
+        $date = $request->query('date', Carbon::now()->toDateString());
+        $status = $request->query('status');
+        $query = Task::whereHas('work', function ($query) use ($date) {
+            $query->whereDate('date', $date);
+        });
+        if ($status) $query->where('status', $status);
+        $query->with('truck:id,number_plate', 'user:id,name')->with(['work' => function ($query) {
+            $query->with('customers:id,name')->with(['truckTypes' => function ($query) {
+                $query->withPivot('quantity');
+            }]);
+        }]);
+        return RouteListResource::collection($query->paginate($perPage));
+    }
+    public function saveToWarehouse(Task $task, Request $request)
+    {
+        Receipt::create([
+            'truck_id' => $task->truck_id,
+            'user_id' => $task->user_id,
+            'quantity' => $task->issues()->sum('quantity'),
+            'warehouse_id' => $request->warehouse_id,
+            'date' => Carbon::now()->toDateString()
+        ]);
+        return Response::created();
     }
 }

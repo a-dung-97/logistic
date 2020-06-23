@@ -18,4 +18,8 @@ class Issue extends Model
     {
         return $this->belongsTo('App\Customer');
     }
+    public function task()
+    {
+        return $this->belongsTo('App\Task');
+    }
 }

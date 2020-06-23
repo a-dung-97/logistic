@@ -42,12 +42,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('trucks', 'Api\Business\TruckController');
     Route::put('broken-truck-reports/{broken_truck_report}/approve', 'Api\Business\BrokenTruckReportController@approve');
     Route::apiResource('broken-truck-reports', 'Api\Business\BrokenTruckReportController');
+    Route::apiResource('warehouses', 'Api\Business\WarehouseController');
 
     Route::apiResource('works', 'Api\Business\WorkController');
     Route::get('works/{work}/tasks', 'Api\Business\WorkController@getTasks');
     Route::post('works/{work}/coordinate', 'Api\Business\WorkController@coordinate');
     Route::post('works/{work}/cancel', 'Api\Business\WorkController@cancel');
     Route::put('cancel', 'Api\Business\WorkController@cancel');
+    Route::get('route-lists', 'Api\Business\WorkController@getRouteLists');
+    Route::get('save-to-warehouse', 'Api\Business\WorkController@saveToWarehouse');
 
     Route::get('tasks', 'Api\Business\TaskController@index');
     Route::put('tasks/{task}/accept', 'Api\Business\TaskController@accept');

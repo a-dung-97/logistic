@@ -16,10 +16,8 @@ class CreateReceiptsTable extends Migration
         Schema::create('receipts', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->unsignedInteger('truck_id');
-            $table->foreign('truck_id')->references('id')->on('trucks');
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedInteger('task_id');
+            $table->foreign('task_id')->references('id')->on('tasks');
             $table->float('quantity')->default(0);
             $table->unsignedInteger('warehouse_id');
             $table->foreign('warehouse_id')->references('id')->on('warehouses');

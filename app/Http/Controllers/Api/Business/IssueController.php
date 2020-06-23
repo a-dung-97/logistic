@@ -23,16 +23,20 @@ class IssueController extends Controller
             return IssueResource::collection($query->with('details', 'customer:id,name')->get());
         }
         $query->whereDate('date', $date);
-        return IssueResource::collection($query->with('details', 'customer:id,name')->paginate($perPage));
+        return IssueResource::collection($query->with('details.scrap', 'customer:id,name')->with(['task' => function ($query) {
+            $query->select('id', 'user_id', 'truck_id')->with('user:id,name', 'truck:id,number_plate');
+        }])->paginate($perPage));
     }
     public function update(Issue $issue, IssueRequest $request)
     {
         $details = $request->details;
         $issue->details()->delete();
+        $total = 0;
         foreach ($details as $detail) {
             $issue->details()->create($detail);
+            $total += $detail['quantity'];
         }
-        $issue->update(['images' => $request->images]);
+        $issue->update(['images' => $request->images, 'quantity' => $total]);
         return Response::updated();
     }
 }
