@@ -11,4 +11,8 @@ class Customer extends Model
     {
         return $this->belongsToMany('App\Scrap');
     }
+    public function issues()
+    {
+        return $this->hasMany('App\Issue');
+    }
 }

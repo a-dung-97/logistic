@@ -61,4 +61,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('issues', 'Api\Business\IssueController@index');
     Route::get('notifications', 'Api\System\UserController@getNotifications');
     Route::put('issues/{issue}', 'Api\Business\IssueController@update');
+
+    Route::get('report', 'Api\Business\ReportController');
 });
